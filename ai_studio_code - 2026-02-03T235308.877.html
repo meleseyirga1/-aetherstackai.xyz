@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherStack AI | Sovereign Intelligence</title>
+    <style>
+        body { background: #000; color: #00ff41; font-family: 'Courier New', monospace; padding: 20px; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .terminal { border: 1px solid #00ff41; padding: 20px; width: 100%; max-width: 800px; height: 500px; background: rgba(0,20,0,0.9); box-shadow: 0 0 30px rgba(0,255,65,0.2); display: flex; flex-direction: column; overflow: hidden; }
+        .output { flex-grow: 1; overflow-y: auto; margin-bottom: 10px; font-size: 14px; line-height: 1.5; }
+        .input-area { display: flex; border-top: 1px solid #333; padding-top: 10px; }
+        .prompt { margin-right: 10px; font-weight: bold; }
+        input { background: transparent; border: none; color: #00ff41; font-family: inherit; font-size: 14px; outline: none; width: 100%; }
+        .system-msg { color: #fff; font-weight: bold; }
+        .green { color: #00ff41; }
+        .dim { color: #006400; }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="output" id="output">
+            <div class="system-msg">AETHERSTACK_AI [v1.0.9] - SOVEREIGN INTELLIGENCE MESH</div>
+            <div class="dim">Handshake: NYC_HUB-772... Verified</div>
+            <div class="dim">Handshake: SGP_HUB-119... Verified</div>
+            <div class="dim">Sovereign Layer 7 Encryption: ACTIVE</div>
+            <br>
+            <div>Welcome, User. You are currently connected to the Global Mesh.</div>
+            <div>Type <span class="green">'help'</span> to see available commands.</div>
+            <br>
+        </div>
+        <div class="input-area">
+            <span class="prompt">root@aetherstack:~#</span>
+            <input type="text" id="commandInput" autofocus autocomplete="off">
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById('commandInput');
+        const output = document.getElementById('output');
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = input.value.toLowerCase().trim();
+                handleCommand(cmd);
+                input.value = '';
+            }
+        });
+
+        function print(text, className = '') {
+            const line = document.createElement('div');
+            line.className = className;
+            line.innerHTML = text;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function handleCommand(cmd) {
+            print('root@aetherstack:~# ' + cmd);
+            switch(cmd) {
+                case 'help':
+                    print('Available Commands:<br>- <b>status</b>: View Hub & Mesh health<br>- <b>balance</b>: Check your Intelligence Units (IU)<br>- <b>recharge</b>: Purchase more IU<br>- <b>clear</b>: Clear the terminal');
+                    break;
+                case 'status':
+                    print('MESH_STATUS: <span class="green">OPTIMAL</span>');
+                    print('NYC_HUB: 100% | SFO_HUB: 98% | SGP_HUB: 94%');
+                    break;
+                case 'balance':
+                    print('CURRENT_BALANCE: <span class="green">1,000 IU</span>');
+                    break;
+                case 'recharge':
+                    print('REDIRECTING TO SOVEREIGN PAYMENT GATEWAY...');
+                    // Add your actual recharge link here
+                    setTimeout(() => { window.location.href = "https://aetherstackai.xyz/recharge"; }, 1500);
+                    break;
+                case 'clear':
+                    output.innerHTML = '';
+                    break;
+                default:
+                    print('Command not found: ' + cmd, 'dim');
+            }
+        }
+    </script>
+</body>
+</html>
