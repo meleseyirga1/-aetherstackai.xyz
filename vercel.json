@@ -1,0 +1,56 @@
+# 1. Delete the package.json (This is what is causing the Next.js error)
+rm -f package.json
+
+# 2. Create/Overwrite vercel.json to force "Static" mode
+cat <<EOF > vercel.json
+{
+  "cleanUrls": true,
+  "framework": null,
+  "outputDirectory": "."
+}
+EOF
+
+# 3. Ensure index.html is present (using your specific filenames)
+# This step ensures your images (founder.png, logo-full.png) are linked correctly
+cat <<EOF > index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AetherStack AI | Sovereign Intelligence</title>
+    <link rel="icon" type="image/png" href="icon-512.png">
+    <style>
+        body { background: #000; color: #00ff41; font-family: monospace; padding: 40px; display: flex; flex-direction: column; align-items: center; }
+        .logo { height: 60px; margin-bottom: 20px; }
+        .terminal { border: 1px solid #00ff41; padding: 20px; width: 100%; max-width: 800px; height: 300px; background: #050505; }
+        .founder-box { margin-top: 20px; display: flex; align-items: center; border: 1px solid #222; padding: 15px; width: 100%; max-width: 800px; }
+        .founder-img { width: 60px; height: 60px; border-radius: 50%; border: 1px solid #00ff41; margin-right: 15px; }
+    </style>
+</head>
+<body>
+    <img src="logo-full.png" alt="AetherStack AI" class="logo">
+    <div class="terminal">
+        <div>[ SYSTEM STATUS: ONLINE ]</div>
+        <div>[ MESH: NYC | SFO | SGP - ACTIVE ]</div>
+        <br>
+        <div>> Sovereign Intelligence Mesh Initialized...</div>
+        <div>> Welcome, Architect Meleseyirga.</div>
+    </div>
+    <div class="founder-box">
+        <img src="founder.png" alt="Founder" class="founder-img">
+        <div>
+            <div style="color:#fff; font-weight:bold;">Meleseyirga</div>
+            <div style="font-size:12px; color:#888;">Lead Architect, AetherStack AI</div>
+        </div>
+    </div>
+</body>
+</html>
+EOF
+
+# 4. Sync with GitHub
+git add .
+git commit -m "FIX: Remove package.json and force static build"
+git push origin main --force
+
+# 5. Trigger your Deploy Hook
+curl -X POST "https://api.vercel.com/v1/integrations/deploy/prj_NzCEJYJJT0iJMRUGBhsVfeKH3iz0/ET7tMIVdcS"
